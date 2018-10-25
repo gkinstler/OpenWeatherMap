@@ -13,9 +13,11 @@ namespace OpenWeatherMap
 
             // using LONDON for the moment
             WebClient webClient = new WebClient();
-            string reply = webClient.DownloadString("https://samples.openweathermap.org/data/2.5/weather?q=London,uk&appid=" + API_KEY);
-
-            Console.WriteLine(reply);
+            string reply = webClient.DownloadString("https://api.openweathermap.org/data/2.5/weather?zip=35222&&APPID=" + API_KEY);
+            var kelvinTemp = JObject.Parse(reply)["main"]["temp"];
+            var fahTemp = (1.8 * ((int)kelvinTemp - 273)) + 32;
+                 
+            Console.WriteLine("The temperature in Birmingham is currently " + fahTemp);
 
             Console.ReadLine();
 
